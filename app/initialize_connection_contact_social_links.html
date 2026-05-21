@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Initialize Connection | AETHER_ML</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;700&amp;family=JetBrains+Mono:wght@400;500&amp;family=Inter:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary": "#e1fdff",
+                        "primary-fixed": "#74f5ff",
+                        "surface-container-highest": "#353437",
+                        "on-tertiary": "#003543",
+                        "on-primary-fixed-variant": "#004f54",
+                        "secondary-fixed": "#e9ddff",
+                        "surface-container": "#201f21",
+                        "surface": "#131315",
+                        "error": "#ffb4ab",
+                        "on-primary": "#00363a",
+                        "on-surface-variant": "#b9cacb",
+                        "inverse-on-surface": "#313032",
+                        "tertiary-fixed": "#b7eaff",
+                        "surface-container-lowest": "#0e0e10",
+                        "secondary": "#d1bcff",
+                        "on-secondary-fixed-variant": "#5700c9",
+                        "on-secondary-fixed": "#23005b",
+                        "background": "#131315",
+                        "inverse-primary": "#00696f",
+                        "secondary-fixed-dim": "#d1bcff",
+                        "on-tertiary-container": "#006881",
+                        "surface-dim": "#131315",
+                        "on-secondary": "#3c0090",
+                        "on-error": "#690005",
+                        "on-background": "#e5e1e4",
+                        "surface-variant": "#353437",
+                        "on-primary-container": "#006a71",
+                        "inverse-surface": "#e5e1e4",
+                        "on-secondary-container": "#ddcdff",
+                        "on-error-container": "#ffdad6",
+                        "on-primary-fixed": "#002022",
+                        "primary-fixed-dim": "#00dbe7",
+                        "tertiary-fixed-dim": "#4cd6ff",
+                        "surface-container-high": "#2a2a2c",
+                        "surface-bright": "#39393b",
+                        "secondary-container": "#7000ff",
+                        "tertiary-container": "#a0e5ff",
+                        "surface-container-low": "#1c1b1d",
+                        "on-surface": "#e5e1e4",
+                        "primary-container": "#00f2ff",
+                        "on-tertiary-fixed": "#001f28",
+                        "error-container": "#93000a",
+                        "surface-tint": "#00dbe7",
+                        "on-tertiary-fixed-variant": "#004e60",
+                        "tertiary": "#eef9ff",
+                        "outline-variant": "#3a494b",
+                        "outline": "#849495"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "margin-mobile": "24px",
+                        "unit": "8px",
+                        "gutter": "32px",
+                        "section-gap": "160px",
+                        "container-max": "1280px",
+                        "margin-desktop": "64px"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["Sora"],
+                        "headline-md": ["Sora"],
+                        "display-lg-mobile": ["Sora"],
+                        "display-lg": ["Sora"],
+                        "label-mono": ["JetBrains Mono"],
+                        "display-xl": ["Sora"],
+                        "body-md": ["Inter"],
+                        "body-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-lg": ["40px", {"lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "400"}],
+                        "headline-md": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "500"}],
+                        "display-lg-mobile": ["40px", {"lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "400"}],
+                        "display-lg": ["64px", {"lineHeight": "72px", "letterSpacing": "-0.03em", "fontWeight": "300"}],
+                        "label-mono": ["12px", {"lineHeight": "16px", "letterSpacing": "0.1em", "fontWeight": "500"}],
+                        "display-xl": ["80px", {"lineHeight": "88px", "letterSpacing": "-0.04em", "fontWeight": "300"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "letterSpacing": "0.01em", "fontWeight": "400"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "letterSpacing": "0em", "fontWeight": "400"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            background-color: #050505;
+            color: #e5e1e4;
+            overflow-x: hidden;
+        }
+
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .glass-panel:hover {
+            border-color: rgba(0, 219, 231, 0.4);
+            box-shadow: 0 0 30px rgba(0, 219, 231, 0.1);
+        }
+
+        .neon-glow-text {
+            text-shadow: 0 0 10px rgba(0, 219, 231, 0.5), 0 0 20px rgba(0, 219, 231, 0.2);
+        }
+
+        .cyber-input {
+            background: transparent;
+            border: none;
+            border-bottom: 2px solid rgba(185, 202, 203, 0.3);
+            transition: all 0.4s ease;
+        }
+
+        .cyber-input:focus {
+            outline: none;
+            border-bottom-color: #00dbe7;
+            box-shadow: 0 4px 12px -4px rgba(0, 219, 231, 0.3);
+        }
+
+        .cyber-button {
+            background: #00dbe7;
+            color: #002022;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cyber-button:hover {
+            transform: scale(1.02);
+            box-shadow: 0 0 25px rgba(0, 219, 231, 0.5);
+        }
+
+        .particle {
+            position: absolute;
+            background: #00dbe7;
+            border-radius: 50%;
+            pointer-events: none;
+            opacity: 0.3;
+            filter: blur(1px);
+        }
+
+        .mesh-gradient {
+            background: radial-gradient(circle at 20% 30%, rgba(0, 219, 231, 0.08) 0%, transparent 40%),
+                        radial-gradient(circle at 80% 70%, rgba(209, 188, 255, 0.08) 0%, transparent 40%);
+        }
+
+        .tilt-card {
+            transform-style: preserve-3d;
+            perspective: 1000px;
+        }
+    </style>
+<link href="site.css" rel="stylesheet"/>
+</head>
+<body class="font-body-md bg-background selection:bg-primary-fixed/30" data-page="contact">
+<!-- Atmospheric Background -->
+<div class="fixed inset-0 z-[-1] mesh-gradient"></div>
+<div class="fixed inset-0 z-[-1]" id="particle-container"></div>
+<!-- TopNavBar -->
+<header class="site-nav fixed top-0 w-full bg-surface/10 backdrop-blur-xl border-b border-white/10 shadow-[0_0_30px_rgba(0,219,231,0.1)] z-50">
+<div class="flex flex-wrap justify-between items-center px-margin-mobile md:px-margin-desktop py-3 w-full max-w-container-max mx-auto gap-3">
+<a class="site-logo font-display-lg text-display-lg-mobile md:text-display-lg tracking-tighter text-primary drop-shadow-[0_0_15px_rgba(0,219,231,0.5)] shrink-0" href="home_animated_cinematic_experience.html">AETHER_ML</a>
+<nav class="hidden md:flex gap-gutter items-center">
+<a class="site-nav-link font-label-mono text-label-mono text-on-surface-variant hover:text-primary transition-all duration-300" data-nav="home" href="home_animated_cinematic_experience.html">Expertise</a>
+<a class="site-nav-link font-label-mono text-label-mono text-on-surface-variant hover:text-primary transition-all duration-300" data-nav="solutions" href="experience_project_showcase_1.html">Solutions</a>
+<a class="site-nav-link font-label-mono text-label-mono text-on-surface-variant hover:text-primary transition-all duration-300" data-nav="archives" href="experience_project_showcase_3.html">Archives</a>
+<a class="site-nav-link font-label-mono text-label-mono text-on-surface-variant hover:text-primary transition-all duration-300" data-nav="about" href="about_high_tech_contact.html">About</a>
+</nav>
+<div class="flex items-center gap-2">
+<a class="hidden sm:inline-flex bg-primary-container text-on-primary-container px-gutter py-unit-1 rounded-full font-label-mono text-label-mono hover:scale-105 active:scale-95 transition-all duration-300 site-nav-link--active" href="initialize_connection_contact_social_links.html">Connect</a>
+<button aria-expanded="false" aria-label="Open menu" class="md:hidden text-primary p-2" id="mobile-menu-btn" type="button"><span class="material-symbols-outlined">menu</span></button>
+</div>
+</div>
+<div class="hidden flex-col gap-3 px-margin-mobile pb-4 border-t border-white/10 bg-surface/95 backdrop-blur-xl" id="mobile-menu">
+<a class="site-nav-link font-label-mono text-label-mono text-on-surface-variant py-2" data-nav="home" href="home_animated_cinematic_experience.html">Expertise</a>
+<a class="site-nav-link font-label-mono text-label-mono text-on-surface-variant py-2" data-nav="solutions" href="experience_project_showcase_1.html">Solutions</a>
+<a class="site-nav-link font-label-mono text-label-mono text-on-surface-variant py-2" data-nav="archives" href="experience_project_showcase_3.html">Archives</a>
+<a class="site-nav-link font-label-mono text-label-mono text-on-surface-variant py-2" data-nav="about" href="about_high_tech_contact.html">About</a>
+<a class="font-label-mono text-label-mono text-primary py-2" href="initialize_connection_contact_social_links.html">Connect</a>
+</div>
+</header>
+<main class="pt-section-gap">
+<!-- Hero & Contact Form Section -->
+<section class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop grid grid-cols-1 lg:grid-cols-12 gap-gutter mb-section-gap">
+<div class="lg:col-span-5 flex flex-col justify-center">
+<div class="mb-gutter">
+<span class="font-label-mono text-label-mono text-primary-fixed border border-primary-fixed/30 px-3 py-1 rounded-full bg-primary-fixed/5">
+                        PROTOCOL: INITIALIZE_LINK
+                    </span>
+</div>
+<h1 class="font-display-xl text-display-lg-mobile md:text-display-xl text-primary leading-tight mb-gutter">
+                    Establish <br/><span class="neon-glow-text font-bold">Neural Link</span>
+</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-md">
+                    Synchronize your vision with the architect of intelligence. Input your transmission parameters to begin the collaborative synthesis.
+                </p>
+<div class="mt-gutter flex items-center gap-4">
+<div class="w-12 h-[1px] bg-primary-fixed/50"></div>
+<span class="font-label-mono text-label-mono text-primary/60 italic">Waiting for input...</span>
+</div>
+</div>
+<div class="lg:col-span-7">
+<div class="glass-panel p-gutter lg:p-12 rounded-xl relative overflow-hidden">
+<!-- Subtle scanline effect -->
+<div class="absolute inset-0 pointer-events-none opacity-[0.03] bg-[linear-gradient(to_bottom,transparent_50%,#00dbe7_50%)] bg-[length:100%_4px]"></div>
+<form class="space-y-gutter relative z-10" data-contact-form="">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-gutter">
+<div class="space-y-unit-2">
+<label class="font-label-mono text-label-mono text-primary-fixed/70 uppercase tracking-widest">Identity_Name</label>
+<input class="cyber-input w-full py-unit-2 text-body-lg text-primary placeholder:text-outline-variant" placeholder="John Doe // User_01" type="text"/>
+</div>
+<div class="space-y-unit-2">
+<label class="font-label-mono text-label-mono text-primary-fixed/70 uppercase tracking-widest">Neural_Address</label>
+<input class="cyber-input w-full py-unit-2 text-body-lg text-primary placeholder:text-outline-variant" placeholder="nexus@domain.com" type="email"/>
+</div>
+</div>
+<div class="space-y-unit-2">
+<label class="font-label-mono text-label-mono text-primary-fixed/70 uppercase tracking-widest">Transmission_Payload</label>
+<textarea class="cyber-input w-full py-unit-2 text-body-lg text-primary placeholder:text-outline-variant resize-none" placeholder="Briefing regarding algorithmic architecture..." rows="4"></textarea>
+</div>
+<div class="pt-gutter">
+<button class="cyber-button w-full py-gutter rounded-lg font-headline-md text-headline-md font-bold uppercase tracking-tighter" type="submit">
+                                Dispatch Transmission
+                            </button>
+</div>
+</form>
+</div>
+</div>
+</section>
+<!-- Direct Data Links -->
+<section class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop mb-section-gap">
+<div class="flex flex-col md:flex-row justify-between items-end mb-gutter gap-4">
+<h2 class="font-headline-lg text-headline-lg text-primary">Direct Data Streams</h2>
+<div class="font-label-mono text-label-mono text-on-surface-variant/40">ESTABLISHED_CHANNELS_V.2.4</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-gutter">
+<!-- Email Card -->
+<div class="tilt-card group">
+<a class="glass-panel p-gutter rounded-xl flex flex-col h-full items-start group-hover:scale-[1.02]" href="mailto:vance@aether-ml.ai">
+<div class="mb-gutter text-primary-fixed group-hover:drop-shadow-[0_0_8px_rgba(116,245,255,0.8)] transition-all">
+<span class="material-symbols-outlined text-[48px]" data-icon="alternate_email">alternate_email</span>
+</div>
+<div class="font-label-mono text-label-mono text-primary-fixed/50 uppercase mb-2">Primary_Node</div>
+<div class="font-body-lg text-body-lg text-primary font-medium">vance@aether-ml.ai</div>
+</a>
+</div>
+<!-- Phone Card -->
+<div class="tilt-card group">
+<div class="glass-panel p-gutter rounded-xl flex flex-col h-full items-start group-hover:scale-[1.02]">
+<div class="mb-gutter text-secondary group-hover:drop-shadow-[0_0_8px_rgba(209,188,255,0.8)] transition-all">
+<span class="material-symbols-outlined text-[48px]" data-icon="terminal">terminal</span>
+</div>
+<div class="font-label-mono text-label-mono text-secondary/50 uppercase mb-2">Voice_Comms</div>
+<div class="font-body-lg text-body-lg text-primary font-medium">+1 (555) 010-9821</div>
+</div>
+</div>
+<!-- GitHub Card -->
+<div class="tilt-card group">
+<a class="glass-panel p-gutter rounded-xl flex flex-col h-full items-start group-hover:scale-[1.02]" href="#">
+<div class="mb-gutter text-primary group-hover:drop-shadow-[0_0_8px_rgba(225,253,255,0.8)] transition-all">
+<span class="material-symbols-outlined text-[48px]" data-icon="code">code</span>
+</div>
+<div class="font-label-mono text-label-mono text-on-surface-variant uppercase mb-2">Neural_Repo</div>
+<div class="font-body-lg text-body-lg text-primary font-medium">github.com/aether-arch</div>
+</a>
+</div>
+<!-- LinkedIn Card -->
+<div class="tilt-card group">
+<a class="glass-panel p-gutter rounded-xl flex flex-col h-full items-start group-hover:scale-[1.02]" href="#">
+<div class="mb-gutter text-primary-fixed group-hover:drop-shadow-[0_0_8px_rgba(116,245,255,0.8)] transition-all">
+<span class="material-symbols-outlined text-[48px]" data-icon="hub">hub</span>
+</div>
+<div class="font-label-mono text-label-mono text-primary-fixed/50 uppercase mb-2">Social_Nexus</div>
+<div class="font-body-lg text-body-lg text-primary font-medium">linkedin.com/in/aether-ml</div>
+</a>
+</div>
+</div>
+</section>
+<!-- Dynamic Visualization Section -->
+<section class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop mb-section-gap overflow-hidden rounded-xl h-[280px] md:h-[400px] relative group">
+<div class="absolute inset-0 glass-panel border-none z-10 flex flex-col items-center justify-center text-center p-gutter">
+<h3 class="font-display-lg text-display-lg text-primary-fixed neon-glow-text mb-4">Location: Distributed</h3>
+<p class="font-label-mono text-label-mono text-on-surface-variant">Global intelligence network with primary uplink in Silicon Valley, CA.</p>
+</div>
+<img class="w-full h-full object-cover opacity-50 group-hover:scale-105 transition-transform duration-700" data-alt="A high-tech digital world map rendered in deep obsidian and neon cyan glowing lines. The visual style is cinematic and futuristic, featuring data points and neural pathways connecting global cities. Soft atmospheric blue light illuminates the dark background, creating a sense of a vast, interconnected digital ecosystem." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAaIED2_u6L4cDhHKHFNRymZX_ZTZ2nEgqgK8Eg6gM9o9IIksvcLpJu2DFMLQ9RjnKRWha0iWbn9kpR6rLp0cbA9FR0wlfqxXIlK_C6ZPd8ufRmXyao9u1H8XcMFLxrSuQxmKJadbYsMR7eWjzjd8n5CHcZ6eKNEOUog0rtivlN4c5AULO3VbF5qafGu7ZEhS0QgMLz7U7w12DXBezs6BEQEwJB3TSB1DnWj9UbHBSdsaL7LRE8vrYmhY0MjAjiGe5n5dwt-mmb9gg"/>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full mt-section-gap border-t border-white/5 bg-surface-container-lowest">
+<div class="flex flex-col md:flex-row justify-between items-center px-margin-mobile md:px-margin-desktop py-gutter w-full max-w-container-max mx-auto gap-6">
+<a class="font-display-lg text-display-lg-mobile md:text-display-lg text-primary mb-4 md:mb-0 site-logo" href="home_animated_cinematic_experience.html">AETHER_ML</a>
+<div class="flex flex-col items-center md:items-end gap-4">
+<div class="flex flex-wrap gap-gutter justify-center">
+<a class="font-label-mono text-label-mono text-on-surface-variant hover:text-secondary hover:drop-shadow-[0_0_8px_rgba(209,188,255,0.8)] transition-colors duration-500" href="home_animated_cinematic_experience.html">Neural Networks</a>
+<a class="font-label-mono text-label-mono text-on-surface-variant hover:text-secondary hover:drop-shadow-[0_0_8px_rgba(209,188,255,0.8)] transition-colors duration-500" href="experience_project_showcase_1.html">Deep Learning</a>
+<a class="font-label-mono text-label-mono text-on-surface-variant hover:text-secondary hover:drop-shadow-[0_0_8px_rgba(209,188,255,0.8)] transition-colors duration-500" href="experience_project_showcase_3.html">Big Data</a>
+<a class="font-label-mono text-label-mono text-primary" href="initialize_connection_contact_social_links.html">Contact</a>
+</div>
+<div class="font-label-mono text-label-mono text-on-surface-variant/50">
+                    © 2024 AETHER ML | ARCHITECT OF INTELLIGENCE
+                </div>
+</div>
+</div>
+</footer>
+<script>
+        // Particle Background System
+        const container = document.getElementById('particle-container');
+        const particleCount = 40;
+
+        for (let i = 0; i < particleCount; i++) {
+            createParticle();
+        }
+
+        function createParticle() {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            
+            const size = Math.random() * 3 + 1;
+            particle.style.width = `${size}px`;
+            particle.style.height = `${size}px`;
+            
+            resetParticle(particle);
+            container.appendChild(particle);
+            
+            animateParticle(particle);
+        }
+
+        function resetParticle(particle) {
+            particle.style.left = `${Math.random() * 100}vw`;
+            particle.style.top = `${Math.random() * 100}vh`;
+            particle.style.opacity = Math.random() * 0.3;
+        }
+
+        function animateParticle(particle) {
+            const duration = Math.random() * 20000 + 10000;
+            const targetX = (Math.random() - 0.5) * 200;
+            const targetY = (Math.random() - 0.5) * 200;
+
+            const animation = particle.animate([
+                { transform: 'translate(0, 0)', opacity: particle.style.opacity },
+                { transform: `translate(${targetX}px, ${targetY}px)`, opacity: 0 }
+            ], {
+                duration: duration,
+                easing: 'linear',
+                iterations: Infinity
+            });
+        }
+
+        // 3D Tilt Effect for Cards
+        const cards = document.querySelectorAll('.tilt-card');
+        
+        cards.forEach(card => {
+            card.addEventListener('mousemove', e => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                
+                const rotateX = (y - centerY) / 10;
+                const rotateY = (centerX - x) / 10;
+                
+                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0)';
+            });
+        });
+
+    </script>
+<script src="site.js"></script>
+</body></html>

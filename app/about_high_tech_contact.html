@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Ritik_AI | Architect of Intelligence</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;700&amp;family=Inter:wght@400;500&amp;family=JetBrains+Mono:wght@500&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "outline-variant": "#3a494b",
+                      "surface-dim": "#131315",
+                      "surface": "#131315",
+                      "on-primary-fixed": "#002022",
+                      "on-primary-container": "#006a71",
+                      "on-secondary-container": "#ddcdff",
+                      "secondary-fixed": "#e9ddff",
+                      "error-container": "#93000a",
+                      "on-tertiary-fixed": "#001f28",
+                      "inverse-primary": "#00696f",
+                      "on-secondary": "#3c0090",
+                      "tertiary": "#eef9ff",
+                      "error": "#ffb4ab",
+                      "tertiary-fixed": "#b7eaff",
+                      "secondary": "#d1bcff",
+                      "on-primary-fixed-variant": "#004f54",
+                      "inverse-on-surface": "#313032",
+                      "inverse-surface": "#e5e1e4",
+                      "on-secondary-fixed-variant": "#5700c9",
+                      "on-tertiary-container": "#006881",
+                      "surface-container-high": "#2a2a2c",
+                      "background": "#131315",
+                      "on-secondary-fixed": "#23005b",
+                      "surface-container-highest": "#353437",
+                      "outline": "#849495",
+                      "on-error-container": "#ffdad6",
+                      "primary-fixed": "#74f5ff",
+                      "primary": "#e1fdff",
+                      "surface-tint": "#00dbe7",
+                      "surface-container": "#201f21",
+                      "on-tertiary-fixed-variant": "#004e60",
+                      "on-surface": "#e5e1e4",
+                      "on-error": "#690005",
+                      "surface-variant": "#353437",
+                      "on-primary": "#00363a",
+                      "surface-container-low": "#1c1b1d",
+                      "primary-fixed-dim": "#00dbe7",
+                      "secondary-fixed-dim": "#d1bcff",
+                      "tertiary-fixed-dim": "#4cd6ff",
+                      "primary-container": "#00f2ff",
+                      "on-tertiary": "#003543",
+                      "surface-bright": "#39393b",
+                      "tertiary-container": "#a0e5ff",
+                      "on-background": "#e5e1e4",
+                      "secondary-container": "#7000ff",
+                      "on-surface-variant": "#b9cacb",
+                      "surface-container-lowest": "#0e0e10"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "container-max": "1280px",
+                      "margin-desktop": "64px",
+                      "section-gap": "160px",
+                      "gutter": "32px",
+                      "margin-mobile": "24px",
+                      "unit": "8px"
+              },
+              "fontFamily": {
+                      "body-md": ["Inter"],
+                      "body-lg": ["Inter"],
+                      "headline-md": ["Sora"],
+                      "headline-lg": ["Sora"],
+                      "display-xl": ["Sora"],
+                      "display-lg": ["Sora"],
+                      "label-mono": ["JetBrains Mono"],
+                      "display-lg-mobile": ["Sora"]
+              },
+              "fontSize": {
+                      "body-md": ["16px", {"lineHeight": "24px", "letterSpacing": "0.01em", "fontWeight": "400"}],
+                      "body-lg": ["18px", {"lineHeight": "28px", "letterSpacing": "0em", "fontWeight": "400"}],
+                      "headline-md": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "500"}],
+                      "headline-lg": ["40px", {"lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "400"}],
+                      "display-xl": ["80px", {"lineHeight": "88px", "letterSpacing": "-0.04em", "fontWeight": "300"}],
+                      "display-lg": ["64px", {"lineHeight": "72px", "letterSpacing": "-0.03em", "fontWeight": "300"}],
+                      "label-mono": ["12px", {"lineHeight": "16px", "letterSpacing": "0.1em", "fontWeight": "500"}],
+                      "display-lg-mobile": ["40px", {"lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "400"}]
+              }
+            },
+          },
+        }
+    </script>
+<style>
+        body {
+            background-color: #050505;
+            color: #e5e1e4;
+            overflow-x: hidden;
+        }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .glow-hover:hover {
+            box-shadow: 0 0 30px rgba(0, 219, 231, 0.3);
+        }
+        .ambient-gradient {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+            background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(0, 219, 231, 0.15) 0%, transparent 50%);
+            pointer-events: none;
+        }
+        .orbit-blur-1 {
+            position: fixed;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(112, 0, 255, 0.1) 0%, transparent 70%);
+            top: -200px;
+            right: -200px;
+            z-index: -1;
+            filter: blur(80px);
+        }
+        .orbit-blur-2 {
+            position: fixed;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(0, 219, 231, 0.08) 0%, transparent 70%);
+            bottom: -150px;
+            left: -150px;
+            z-index: -1;
+            filter: blur(80px);
+        }
+        .text-glow {
+            text-shadow: 0 0 15px rgba(0, 219, 231, 0.5);
+        }
+        input:focus + span.line-glow, textarea:focus + span.line-glow {
+            width: 100%;
+        }
+        .tilt-card {
+            transition: transform 0.1s ease-out;
+            transform-style: preserve-3d;
+        }
+    </style>
+<link href="site.css" rel="stylesheet"/>
+</head>
+<body class="font-body-md selection:bg-primary/30" data-page="about">
+<div class="ambient-gradient" id="ambient-bg"></div>
+<div class="orbit-blur-1"></div>
+<div class="orbit-blur-2"></div>
+<!-- Navigation -->
+<nav class="site-nav fixed top-0 w-full bg-surface/10 backdrop-blur-xl border-b border-white/10 z-50 shadow-[0_0_30px_rgba(0,219,231,0.1)]">
+<div class="flex flex-wrap justify-between items-center px-margin-mobile md:px-margin-desktop py-3 w-full max-w-container-max mx-auto gap-3">
+<a class="site-logo font-display-lg text-display-lg-mobile md:text-display-lg tracking-tighter text-primary text-glow shrink-0" href="home_animated_cinematic_experience.html">AETHER_ML</a>
+<div class="hidden md:flex items-center gap-gutter">
+<a class="site-nav-link font-label-mono text-label-mono text-on-surface-variant hover:text-primary transition-all duration-300" data-nav="home" href="home_animated_cinematic_experience.html">Expertise</a>
+<a class="site-nav-link font-label-mono text-label-mono text-on-surface-variant hover:text-primary transition-all duration-300" data-nav="solutions" href="experience_project_showcase_1.html">Solutions</a>
+<a class="site-nav-link font-label-mono text-label-mono text-on-surface-variant hover:text-primary transition-all duration-300" data-nav="archives" href="experience_project_showcase_3.html">Archives</a>
+<a class="site-nav-link font-label-mono text-label-mono text-on-surface-variant hover:text-primary transition-all duration-300" data-nav="about" href="about_high_tech_contact.html">About</a>
+</div>
+<div class="flex items-center gap-2">
+<a class="hidden sm:inline-flex ml-0 md:ml-4 px-6 py-2 bg-primary-fixed-dim text-on-primary font-label-mono text-label-mono rounded-DEFAULT hover:scale-105 active:scale-95 transition-all duration-300 glow-hover" href="initialize_connection_contact_social_links.html">Connect</a>
+<button aria-expanded="false" aria-label="Open menu" class="md:hidden text-primary p-2" id="mobile-menu-btn" type="button"><span class="material-symbols-outlined">menu</span></button>
+</div>
+</div>
+<div class="hidden flex-col gap-3 px-margin-mobile pb-4 border-t border-white/10 bg-surface/95 backdrop-blur-xl" id="mobile-menu">
+<a class="site-nav-link font-label-mono text-label-mono text-on-surface-variant py-2" data-nav="home" href="home_animated_cinematic_experience.html">Expertise</a>
+<a class="site-nav-link font-label-mono text-label-mono text-on-surface-variant py-2" data-nav="solutions" href="experience_project_showcase_1.html">Solutions</a>
+<a class="site-nav-link font-label-mono text-label-mono text-on-surface-variant py-2" data-nav="archives" href="experience_project_showcase_3.html">Archives</a>
+<a class="site-nav-link font-label-mono text-label-mono text-on-surface-variant py-2" data-nav="about" href="about_high_tech_contact.html">About</a>
+<a class="font-label-mono text-label-mono text-primary py-2" href="initialize_connection_contact_social_links.html">Connect</a>
+</div>
+</nav>
+<main class="relative z-10 pt-section-gap px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
+<!-- Hero Title -->
+<header class="mb-section-gap text-center md:text-left">
+<div class="inline-block px-3 py-1 bg-primary/10 rounded-full border border-primary/20 mb-6">
+<span class="font-label-mono text-label-mono text-primary tracking-widest">SYSTEM_INFO: IDENTITY_CORE</span>
+</div>
+<h1 class="font-display-xl text-display-lg-mobile md:text-display-xl text-primary leading-tight">Architecting the <br/><span class="font-bold italic">Neural Future</span></h1>
+</header>
+<!-- About Section -->
+<section class="grid grid-cols-1 lg:grid-cols-12 gap-gutter items-center mb-section-gap">
+<div class="lg:col-span-5 relative group">
+<div class="tilt-card glass-panel p-unit-1 rounded-xl overflow-hidden aspect-[4/5] relative">
+<img class="w-full h-full object-cover rounded-lg opacity-80 group-hover:opacity-100 transition-opacity duration-500" data-alt="A striking portrait of a visionary technologist in a dark studio setting. The subject is lit with sharp, high-contrast cyan and violet rim lighting that emphasizes cinematic depth. The background is an obsidian black with subtle, blurred bokeh representing digital data streams. The overall mood is professional, analytical, and futuristic, mirroring a high-end ML architect persona." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAZEB5-jjqgEncXTCJYlPxWcF_yU8YLve7QaBUnVjNM5kzy-ymIy01JvzumkfoQhYNa1Ps6TNVoLHAbQWPO-ZeE1McehmgSBk1kSjd6KNuZGg8cCCMYplt6JzrrQfiC-QR3aEKHmu-MzaD61roV1azHYs1AY6FuDFOA4WekEVzZmW2nOSj1G_Tc07S1XJgC6GRe_ZUYQkxsJ-D1t2-_o17LbF9RM4Cxg93yKkV3AGcW609Yx6HLfwx5mbwIyj3OH6Qfq1LDlUjseWE"/>
+<div class="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent opacity-60"></div>
+</div>
+<!-- Float Decoration -->
+<div class="absolute -bottom-8 -right-8 glass-panel p-6 rounded-lg hidden md:block border-primary/30">
+<div class="font-label-mono text-primary text-[10px] mb-2">STATUS_ACTIVE</div>
+<div class="font-headline-md text-headline-md text-on-surface">99.8% Efficient</div>
+</div>
+</div>
+<div class="lg:col-span-7 lg:pl-margin-desktop space-y-gutter">
+<div class="space-y-4">
+<h2 class="font-headline-lg text-headline-lg text-primary">Beyond Mathematical Models</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant leading-relaxed">
+                        I specialize in the synthesis of high-dimensional data and cinematic user interfaces. As the "Architect of Intelligence," my focus lies at the intersection of deep learning optimization and human-centric data visualization. 
+                    </p>
+<p class="font-body-lg text-body-lg text-on-surface-variant leading-relaxed">
+                        With over a decade of experience in neural networks and algorithmic engineering, I build systems that don't just process information—they reveal insights through the lens of technical precision and aesthetic harmony.
+                    </p>
+</div>
+<!-- Stats Bento Grid -->
+<div class="grid grid-cols-2 md:grid-cols-3 gap-4 pt-8">
+<div class="glass-panel p-6 rounded-lg group hover:border-primary/50 transition-colors">
+<div class="font-display-lg text-headline-lg text-primary mb-1 count-up" data-target="150">0</div>
+<div class="font-label-mono text-label-mono text-on-surface-variant uppercase">Projects Deployed</div>
+</div>
+<div class="glass-panel p-6 rounded-lg group hover:border-secondary/50 transition-colors">
+<div class="font-display-lg text-headline-lg text-secondary mb-1 count-up" data-target="12">0</div>
+<div class="font-label-mono text-label-mono text-on-surface-variant uppercase">ML Frameworks</div>
+</div>
+<div class="glass-panel p-6 rounded-lg group hover:border-primary/50 transition-colors col-span-2 md:col-span-1">
+<div class="font-display-lg text-headline-lg text-primary mb-1 count-up" data-target="98">0</div>
+<div class="font-label-mono text-label-mono text-on-surface-variant uppercase">Accuracy Rate %</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Contact Section -->
+<section class="mb-section-gap">
+<div class="max-w-3xl mx-auto text-center mb-gutter">
+<h2 class="font-display-lg text-headline-lg md:text-display-lg text-primary mb-4">Initialize Connection</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant">Secure, end-to-end encrypted communication channel for visionary partnerships.</p>
+</div>
+<div class="glass-panel max-w-4xl mx-auto p-gutter md:p-12 rounded-xl relative overflow-hidden">
+<!-- Background Pulse -->
+<div class="absolute top-0 right-0 p-4 opacity-10">
+<span class="material-symbols-outlined text-[120px] text-primary">data_array</span>
+</div>
+<form class="grid grid-cols-1 md:grid-cols-2 gap-8 relative z-10" data-contact-form="">
+<div class="relative group">
+<label class="block font-label-mono text-label-mono text-primary mb-2 uppercase tracking-tighter">Identity_Name</label>
+<input class="w-full bg-transparent border-0 border-b-2 border-outline-variant p-4 text-on-surface font-body-lg focus:ring-0 focus:outline-none focus:border-transparent group" placeholder="John Doe" type="text"/>
+<span class="line-glow absolute bottom-0 left-0 w-0 h-[2px] bg-gradient-to-r from-primary to-secondary transition-all duration-500"></span>
+</div>
+<div class="relative group">
+<label class="block font-label-mono text-label-mono text-primary mb-2 uppercase tracking-tighter">Neural_Address</label>
+<input class="w-full bg-transparent border-0 border-b-2 border-outline-variant p-4 text-on-surface font-body-lg focus:ring-0 focus:outline-none focus:border-transparent" placeholder="name@domain.com" type="email"/>
+<span class="line-glow absolute bottom-0 left-0 w-0 h-[2px] bg-gradient-to-r from-primary to-secondary transition-all duration-500"></span>
+</div>
+<div class="relative group md:col-span-2">
+<label class="block font-label-mono text-label-mono text-primary mb-2 uppercase tracking-tighter">Transmission_Payload</label>
+<textarea class="w-full bg-transparent border-0 border-b-2 border-outline-variant p-4 text-on-surface font-body-lg focus:ring-0 focus:outline-none focus:border-transparent" placeholder="Briefly describe your algorithmic requirements..." rows="4"></textarea>
+<span class="line-glow absolute bottom-0 left-0 w-0 h-[2px] bg-gradient-to-r from-primary to-secondary transition-all duration-500"></span>
+</div>
+<div class="md:col-span-2 pt-8">
+<button class="w-full py-5 bg-transparent border border-primary/40 text-primary font-label-mono text-body-lg rounded-DEFAULT hover:bg-primary-fixed-dim hover:text-on-primary transition-all duration-500 glow-hover flex justify-center items-center gap-3" type="submit">
+                            EXECUTE_SUBMIT
+                            <span class="material-symbols-outlined text-sm">send</span>
+</button>
+</div>
+</form>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-container-lowest border-t border-white/5 mt-section-gap">
+<div class="flex flex-col md:flex-row justify-between items-center px-margin-mobile md:px-margin-desktop py-gutter w-full max-w-container-max mx-auto gap-gutter">
+<a class="font-display-lg text-headline-md text-primary tracking-tighter site-logo" href="home_animated_cinematic_experience.html">Ritik_AI</a>
+<div class="font-label-mono text-label-mono text-on-surface-variant text-center md:text-left">
+                © 2024 Ritik_AI | Ritik_AI OF INTELLIGENCE
+            </div>
+<div class="flex flex-wrap gap-gutter justify-center">
+<a class="font-label-mono text-label-mono text-on-surface-variant hover:text-secondary hover:drop-shadow-[0_0_8px_rgba(209,188,255,0.8)] transition-colors duration-500" href="home_animated_cinematic_experience.html">Neural Networks</a>
+<a class="font-label-mono text-label-mono text-on-surface-variant hover:text-secondary hover:drop-shadow-[0_0_8px_rgba(209,188,255,0.8)] transition-colors duration-500" href="experience_project_showcase_3.html">Big Data</a>
+<a class="font-label-mono text-label-mono text-on-surface-variant hover:text-secondary hover:drop-shadow-[0_0_8px_rgba(209,188,255,0.8)] transition-colors duration-500" href="initialize_connection_contact_social_links.html">Contact</a>
+</div>
+</div>
+</footer>
+<script>
+        // Interactive Ambient Background
+        const ambientBg = document.getElementById('ambient-bg');
+        document.addEventListener('mousemove', (e) => {
+            const x = (e.clientX / window.innerWidth) * 100;
+            const y = (e.clientY / window.innerHeight) * 100;
+            ambientBg.style.setProperty('--mouse-x', `${x}%`);
+            ambientBg.style.setProperty('--mouse-y', `${y}%`);
+        });
+
+        // 3D Tilt Effect for Card
+        const card = document.querySelector('.tilt-card');
+        if(card) {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                const rotateX = (y - centerY) / 20;
+                const rotateY = (centerX - x) / 20;
+                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg)';
+            });
+        }
+
+        // Animated Stats
+        const counters = document.querySelectorAll('.count-up');
+        const speed = 200;
+
+        const startCounting = (entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const counter = entry.target;
+                    const updateCount = () => {
+                        const target = +counter.getAttribute('data-target');
+                        const count = +counter.innerText;
+                        const inc = target / speed;
+
+                        if (count < target) {
+                            counter.innerText = Math.ceil(count + inc);
+                            setTimeout(updateCount, 10);
+                        } else {
+                            counter.innerText = target;
+                        }
+                    };
+                    updateCount();
+                    observer.unobserve(counter);
+                }
+            });
+        };
+
+        const observerOptions = {
+            threshold: 1.0
+        };
+
+        const observer = new IntersectionObserver(startCounting, observerOptions);
+        counters.forEach(counter => observer.observe(counter));
+    </script>
+<script src="site.js"></script>
+</body></html>

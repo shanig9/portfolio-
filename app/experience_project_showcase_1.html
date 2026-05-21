@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AETHER_ML | Architect of Intelligence</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600&amp;family=Inter:wght@400;500&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        :root {
+            --obsidian: #050505;
+        }
+        body {
+            background-color: var(--obsidian);
+            color: #e5e1e4;
+            overflow-x: hidden;
+        }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .glow-hover:hover {
+            box-shadow: 0 0 30px rgba(0, 219, 231, 0.2);
+            border-color: rgba(0, 219, 231, 0.4);
+        }
+        .timeline-line-bg {
+            background: rgba(255, 255, 255, 0.05);
+        }
+        .timeline-line-progress {
+            background: linear-gradient(180deg, #00dbe7 0%, #7000ff 100%);
+            height: 0%;
+            transition: height 0.1s linear;
+        }
+        .pulsing-dot {
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(0, 219, 231, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(0, 219, 231, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(0, 219, 231, 0); }
+        }
+        .tilt-card {
+            transform-style: preserve-3d;
+            perspective: 1000px;
+            transition: transform 0.1s ease-out, border-color 0.3s ease;
+            position: relative;
+        }
+        .tilt-card::before {
+            content: '';
+            position: absolute;
+            inset: -1px;
+            background: linear-gradient(45deg, transparent, rgba(0, 219, 231, 0.3), transparent);
+            z-index: -1;
+            border-radius: inherit;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .tilt-card:hover::before {
+            opacity: 1;
+            animation: borderGlow 2s linear infinite;
+        }
+        @keyframes borderGlow {
+            0% { filter: hue-rotate(0deg); }
+            100% { filter: hue-rotate(360deg); }
+        }
+        .tilt-content {
+            transform: translateZ(30px);
+        }
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .mask-fade {
+            mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+        }
+        .reveal-left {
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: all 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+        .reveal-right {
+            opacity: 0;
+            transform: translateX(50px);
+            transition: all 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+        .reveal-active {
+            opacity: 1 !important;
+            transform: translateX(0) !important;
+        }
+        canvas#particle-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -5;
+            pointer-events: none;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "outline-variant": "#3a494b",
+                        "surface-dim": "#131315",
+                        "surface": "#131315",
+                        "on-primary-fixed": "#002022",
+                        "on-primary-container": "#006a71",
+                        "on-secondary-container": "#ddcdff",
+                        "secondary-fixed": "#e9ddff",
+                        "error-container": "#93000a",
+                        "on-tertiary-fixed": "#001f28",
+                        "inverse-primary": "#00696f",
+                        "on-secondary": "#3c0090",
+                        "tertiary": "#eef9ff",
+                        "error": "#ffb4ab",
+                        "tertiary-fixed": "#b7eaff",
+                        "secondary": "#d1bcff",
+                        "on-primary-fixed-variant": "#004f54",
+                        "inverse-on-surface": "#313032",
+                        "inverse-surface": "#e5e1e4",
+                        "on-secondary-fixed-variant": "#5700c9",
+                        "on-tertiary-container": "#006881",
+                        "surface-container-high": "#2a2a2c",
+                        "background": "#131315",
+                        "on-secondary-fixed": "#23005b",
+                        "surface-container-highest": "#353437",
+                        "outline": "#849495",
+                        "on-error-container": "#ffdad6",
+                        "primary-fixed": "#74f5ff",
+                        "primary": "#e1fdff",
+                        "surface-tint": "#00dbe7",
+                        "surface-container": "#201f21",
+                        "on-tertiary-fixed-variant": "#004e60",
+                        "on-surface": "#e5e1e4",
+                        "on-error": "#690005",
+                        "surface-variant": "#353437",
+                        "on-primary": "#00363a",
+                        "surface-container-low": "#1c1b1d",
+                        "primary-fixed-dim": "#00dbe7",
+                        "secondary-fixed-dim": "#d1bcff",
+                        "tertiary-fixed-dim": "#4cd6ff",
+                        "primary-container": "#00f2ff",
+                        "on-tertiary": "#003543",
+                        "surface-bright": "#39393b",
+                        "tertiary-container": "#a0e5ff",
+                        "on-background": "#e5e1e4",
+                        "secondary-container": "#7000ff",
+                        "on-surface-variant": "#b9cacb",
+                        "surface-container-lowest": "#0e0e10"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "container-max": "1280px",
+                        "margin-desktop": "64px",
+                        "section-gap": "160px",
+                        "gutter": "32px",
+                        "margin-mobile": "24px",
+                        "unit": "8px"
+                    },
+                    "fontFamily": {
+                        "body-md": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "headline-md": ["Sora"],
+                        "headline-lg": ["Sora"],
+                        "display-xl": ["Sora"],
+                        "display-lg": ["Sora"],
+                        "label-mono": ["JetBrains Mono"],
+                        "display-lg-mobile": ["Sora"]
+                    },
+                    "fontSize": {
+                        "body-md": ["16px", {"lineHeight": "24px", "letterSpacing": "0.01em", "fontWeight": "400"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "letterSpacing": "0em", "fontWeight": "400"}],
+                        "headline-md": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "500"}],
+                        "headline-lg": ["40px", {"lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "400"}],
+                        "display-xl": ["80px", {"lineHeight": "88px", "letterSpacing": "-0.04em", "fontWeight": "300"}],
+                        "display-lg": ["64px", {"lineHeight": "72px", "letterSpacing": "-0.03em", "fontWeight": "300"}],
+                        "label-mono": ["12px", {"lineHeight": "16px", "letterSpacing": "0.1em", "fontWeight": "500"}],
+                        "display-lg-mobile": ["40px", {"lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "400"}]
+                    }
+                }
+            }
+        }
+    </script>
+<link href="site.css" rel="stylesheet"/>
+</head>
+<body class="font-body-md text-on-surface" data-page="solutions">
+<!-- Particle Background -->
+<canvas id="particle-canvas"></canvas>
+<!-- Background Orbs -->
+<div class="fixed inset-0 overflow-hidden -z-10 pointer-events-none">
+<div class="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-primary/10 blur-[120px] rounded-full transition-transform duration-1000 ease-out"></div>
+<div class="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-secondary/10 blur-[120px] rounded-full transition-transform duration-1000 ease-out"></div>
+</div>
+<!-- TopNavBar -->
+<nav class="site-nav fixed top-0 w-full z-[100] bg-surface/40 backdrop-blur-xl border-b border-white/10 shadow-[0_0_30px_rgba(0,219,231,0.1)]">
+<div class="flex flex-wrap justify-between items-center px-margin-mobile md:px-margin-desktop py-3 w-full max-w-container-max mx-auto gap-3">
+<a class="site-logo font-display-lg text-display-lg-mobile md:text-display-lg tracking-tighter text-primary drop-shadow-[0_0_15px_rgba(0,219,231,0.5)] shrink-0" href="home_animated_cinematic_experience.html">Ritik_AI</a>
+<div class="hidden md:flex gap-gutter items-center">
+<a class="site-nav-link font-label-mono text-label-mono text-on-surface-variant hover:text-primary transition-all duration-300" data-nav="home" href="home_animated_cinematic_experience.html">Expertise</a>
+<a class="site-nav-link font-label-mono text-label-mono text-on-surface-variant hover:text-primary transition-all duration-300" data-nav="solutions" href="experience_project_showcase_1.html">Solutions</a>
+<a class="site-nav-link font-label-mono text-label-mono text-on-surface-variant hover:text-primary transition-all duration-300" data-nav="archives" href="experience_project_showcase_3.html">Archives</a>
+<a class="site-nav-link font-label-mono text-label-mono text-on-surface-variant hover:text-primary transition-all duration-300" data-nav="about" href="about_high_tech_contact.html">About</a>
+</div>
+<div class="flex items-center gap-2">
+<a class="hidden sm:inline-flex ml-0 md:ml-gutter px-6 py-2 bg-primary-container text-on-primary font-label-mono text-label-mono rounded-full hover:scale-105 active:scale-95 transition-all duration-300 shadow-[0_0_20px_rgba(0,219,231,0.4)]" href="initialize_connection_contact_social_links.html">Connect</a>
+<button aria-expanded="false" aria-label="Open menu" class="md:hidden text-primary p-2" id="mobile-menu-btn" type="button"><span class="material-symbols-outlined">menu</span></button>
+</div>
+</div>
+<div class="hidden flex-col gap-3 px-margin-mobile pb-4 border-t border-white/10 bg-surface/95 backdrop-blur-xl" id="mobile-menu">
+<a class="site-nav-link font-label-mono text-label-mono text-on-surface-variant py-2" data-nav="home" href="home_animated_cinematic_experience.html">Expertise</a>
+<a class="site-nav-link font-label-mono text-label-mono text-on-surface-variant py-2" data-nav="solutions" href="experience_project_showcase_1.html">Solutions</a>
+<a class="site-nav-link font-label-mono text-label-mono text-on-surface-variant py-2" data-nav="archives" href="experience_project_showcase_3.html">Archives</a>
+<a class="site-nav-link font-label-mono text-label-mono text-on-surface-variant py-2" data-nav="about" href="about_high_tech_contact.html">About</a>
+<a class="font-label-mono text-label-mono text-primary py-2" href="initialize_connection_contact_social_links.html">Connect</a>
+</div>
+</nav>
+<main class="pt-24 md:pt-[140px]">
+<!-- Hero Section Header -->
+<header class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop mb-section-gap">
+<h1 class="font-display-xl text-display-lg-mobile md:text-display-xl mb-gutter max-w-4xl">
+            Engineering <span class="text-primary italic">Intelligence</span> Through Data.
+        </h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl">
+            A showcase of architectural precision in Machine Learning and Strategic Analytics. Mapping the evolution of neural landscapes.
+        </p>
+</header>
+<!-- Section 1: Experience Timeline -->
+<section class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop mb-section-gap relative" id="experience-section">
+<!-- Background Track -->
+<div class="absolute left-[50%] transform -translate-x-1/2 h-full w-[2px] timeline-line-bg z-0"></div>
+<!-- Progress Line -->
+<div class="absolute left-[50%] transform -translate-x-1/2 top-0 w-[2px] timeline-line-progress z-0" id="timeline-progress"></div>
+<div class="flex flex-col gap-section-gap relative z-10">
+<!-- Timeline Item 1 -->
+<div class="flex flex-col md:flex-row items-center justify-between w-full group">
+<div class="w-full md:w-[45%] flex justify-end">
+<div class="reveal-left glass-panel p-gutter rounded-xl glow-hover w-full md:max-w-md text-right">
+<span class="font-label-mono text-label-mono text-primary mb-2 block">2026 - PRESENT</span>
+<h3 class="font-headline-md text-headline-md mb-2">Lead AI Architect</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Spearheading the development of autonomous decision-making agents for Fortune 500 financial ecosystems.</p>
+</div>
+</div>
+<div class="w-8 h-8 rounded-full bg-primary border-4 border-surface z-20 pulsing-dot my-6 md:my-0"></div>
+<div class="w-full md:w-[45%] hidden md:block"></div>
+</div>
+<!-- Timeline Item 2 -->
+<div class="flex flex-col md:flex-row items-center justify-between w-full group">
+<div class="w-full md:w-[45%] hidden md:block"></div>
+<div class="w-8 h-8 rounded-full bg-secondary border-4 border-surface z-20 my-6 md:my-0 group-hover:shadow-[0_0_15px_rgba(209,188,255,0.6)] transition-all"></div>
+<div class="w-full md:w-[45%]">
+<div class="reveal-right glass-panel p-gutter rounded-xl glow-hover w-full md:max-w-md">
+<span class="font-label-mono text-label-mono text-secondary mb-2 block">2021 - 2023</span>
+<h3 class="font-headline-md text-headline-md mb-2"> ML Engineer</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Optimized deep learning pipelines, reducing training latency by 45% using custom CUDA kernels.</p>
+</div>
+</div>
+</div>
+<!-- Timeline Item 3 -->
+<div class="flex flex-col md:flex-row items-center justify-between w-full group">
+<div class="w-full md:w-[45%] flex justify-end">
+<div class="reveal-left glass-panel p-gutter rounded-xl glow-hover w-full md:max-w-md text-right">
+<span class="font-label-mono text-label-mono text-primary mb-2 block">2019 - 2021</span>
+<h3 class="font-headline-md text-headline-md mb-2">Data Scientist</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Built predictive modeling engines for supply chain logistics, saving $2M in annual overhead.</p>
+</div>
+</div>
+<div class="w-8 h-8 rounded-full bg-primary border-4 border-surface z-20 my-6 md:my-0 group-hover:shadow-[0_0_15px_rgba(0,219,231,0.6)] transition-all"></div>
+<div class="w-full md:w-[45%] hidden md:block"></div>
+</div>
+</div>
+</section>
+<!-- Section 2: Coming Soon Projects Masonry -->
+<section class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop mb-section-gap">
+<div class="flex justify-between items-end mb-gutter">
+<div>
+<span class="font-label-mono text-label-mono text-secondary tracking-widest uppercase">The Pipeline</span>
+<h2 class="font-headline-lg text-headline-lg">Archives &amp; Incubations</h2>
+</div>
+<div class="font-label-mono text-label-mono text-on-surface-variant">
+                CURRENT_STATUS: <span class="text-primary">ENCRYPTED</span>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter auto-rows-[300px]">
+<!-- Project Card 1: Large -->
+<div class="md:col-span-8 md:row-span-2 glass-panel rounded-xl overflow-hidden group tilt-card relative cursor-pointer" onclick="toggleExpand(this)">
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent z-10 pointer-events-none"></div>
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="A high-tech digital interface displaying complex neural network visualizations and data streams in deep blue and obsidian black." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBIYSIWAU_z5Zr1TeiQIWA3LVRF4ze950dqa0skWpIAIpmc132Ot81urzE2wY9T8NtRLXPMyhwP1xjFHZLdFjeLyN5fWYiqMrMG06gx95jIfYBNzhF5imzaNynziHpzuqf_gAm2Eu8k3vCMTGOcmQtzIlBSErWraF3wB6HQnZC9xGaZe-vX76ZOzFpwGy1c6tc-7mCmdFZK1Ogn-ug6paeZmWLcSypxK580iVhUuebMMQq_beT3Rv48deApkL4WjlU-H1bUgjo7yiU"/>
+<div class="absolute bottom-0 left-0 p-gutter z-20 tilt-content pointer-events-none">
+<div class="flex gap-2 mb-2">
+<span class="px-2 py-1 bg-primary/10 text-primary font-label-mono text-[10px] rounded">NLP</span>
+<span class="px-2 py-1 bg-primary/10 text-primary font-label-mono text-[10px] rounded">TRANSFORMERS</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-white mb-2">Project: NEURAL_LENS</h3>
+<p class="font-body-md text-body-md text-on-surface-variant opacity-0 group-hover:opacity-100 transition-opacity duration-500 max-w-lg">
+                        An experimental visual-semantic bridge capable of translating complex abstract concepts into hyper-detailed prompt architectures. Coming Q4 2024.
+                    </p>
+</div>
+</div>
+<!-- Project Card 2 -->
+<div class="md:col-span-4 md:row-span-1 glass-panel rounded-xl overflow-hidden group tilt-card relative cursor-pointer">
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent z-10 pointer-events-none"></div>
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="A macro close-up of high-performance server hardware glowing with vibrant purple and cyan fiber optic lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBzlYQVpfHZab4U96wA41aduGyXUuH3wcCNpKUt5t1-IS6uT5mOHjGTFTrjrAL207YJX_5J808nSE38KAZDlMiTEbLC7GszJ9F1_b1ccPqcVz0v8uFTR65c7jaZ2qRBvYNWx_zUy-Gi_XrQ73unSowOqM2yf6RHmvN5qYAi2FwWxtNTItgIHNxePddP7J6gXhG4V1oIJk-kw2ZEFoyz6ow2vGwiNhpPJeNBFHTIpQzBgMlDcMreixyfSxKCCnc6oDkx9p9PrM0vAPc"/>
+<div class="absolute bottom-0 left-0 p-gutter z-20 tilt-content pointer-events-none">
+<h3 class="font-body-lg font-bold text-white mb-1">KINETIC_FLOW</h3>
+<span class="font-label-mono text-[10px] text-secondary">COMING SOON</span>
+</div>
+</div>
+<!-- Project Card 3 -->
+<div class="md:col-span-4 md:row-span-1 glass-panel rounded-xl overflow-hidden group tilt-card relative cursor-pointer">
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent z-10 pointer-events-none"></div>
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="Abstract visualization of big data as a complex web of interconnected glowing nodes." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCt6hWfKhbGJRAgKoQXtAo2ZC5TbMxZ9F2eeN2FwEH2FGKPpZ4xeaMR-ngvo8vG5hFj1ziS_dV2nZwq0KbrGj4CR0m_Oe3IVvvF5mEBG6Hx14LPBI1XLGfaScOdupfTrh64xX9F9zYQhHhAJK67AmWq--JylskDNw3Ur0wRd8k6mZ-vEdhLbKTlXVYk4s7aF697eiC37t7JcnoMyC4Itk1MU0OT2wL5chyAbWd9beU8tajDLONwmkdZLh-9m_-3Kp94z4faXK6Uetw"/>
+<div class="absolute bottom-0 left-0 p-gutter z-20 tilt-content pointer-events-none">
+<h3 class="font-body-lg font-bold text-white mb-1">VOID_ANALYSIS</h3>
+<span class="font-label-mono text-[10px] text-secondary">ENCRYPTED</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Section 3: Animated Certifications Carousel -->
+<section class="w-full bg-surface-container-lowest py-gutter overflow-hidden relative">
+<div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop mb-unit-4">
+<h2 class="font-label-mono text-label-mono text-primary text-center">VALIDATED COMPETENCIES</h2>
+</div>
+<div class="flex whitespace-nowrap mask-fade animate-marquee">
+<div class="flex gap-gutter items-center px-4">
+<!-- Cert 1 -->
+<div class="flex items-center gap-unit-2 glass-panel px-6 py-4 rounded-full border-white/5 shrink-0">
+<span class="material-symbols-outlined text-primary">verified</span>
+<span class="font-label-mono text-label-mono">Google Professional ML Engineer</span>
+</div>
+<!-- Cert 2 -->
+<div class="flex items-center gap-unit-2 glass-panel px-6 py-4 rounded-full border-white/5 shrink-0">
+<span class="material-symbols-outlined text-secondary">data_exploration</span>
+<span class="font-label-mono text-label-mono">AWS Certified Data Analytics</span>
+</div>
+<!-- Cert 3 -->
+<div class="flex items-center gap-unit-2 glass-panel px-6 py-4 rounded-full border-white/5 shrink-0">
+<span class="material-symbols-outlined text-primary">memory</span>
+<span class="font-label-mono text-label-mono">NVIDIA CUDA Specialist</span>
+</div>
+<!-- Cert 4 -->
+<div class="flex items-center gap-unit-2 glass-panel px-6 py-4 rounded-full border-white/5 shrink-0">
+<span class="material-symbols-outlined text-secondary">psychology</span>
+<span class="font-label-mono text-label-mono">DeepLearning.AI Specialization</span>
+</div>
+<!-- Repeat for Seamless Loop -->
+<div class="flex items-center gap-unit-2 glass-panel px-6 py-4 rounded-full border-white/5 shrink-0">
+<span class="material-symbols-outlined text-primary">verified</span>
+<span class="font-label-mono text-label-mono">Google Professional ML Engineer</span>
+</div>
+<div class="flex items-center gap-unit-2 glass-panel px-6 py-4 rounded-full border-white/5 shrink-0">
+<span class="material-symbols-outlined text-secondary">data_exploration</span>
+<span class="font-label-mono text-label-mono">AWS Certified Data Analytics</span>
+</div>
+<div class="flex items-center gap-unit-2 glass-panel px-6 py-4 rounded-full border-white/5 shrink-0">
+<span class="material-symbols-outlined text-primary">memory</span>
+<span class="font-label-mono text-label-mono">NVIDIA CUDA Specialist</span>
+</div>
+</div>
+</div>
+<style>
+            @keyframes marquee {
+                0% { transform: translateX(0); }
+                100% { transform: translateX(-50%); }
+            }
+            .animate-marquee {
+                animation: marquee 30s linear infinite;
+                width: max-content;
+            }
+            .animate-marquee:hover {
+                animation-play-state: paused;
+            }
+        </style>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full mt-section-gap bg-surface-container-lowest border-t border-white/5">
+<div class="flex flex-col md:flex-row justify-between items-center px-margin-mobile md:px-margin-desktop py-gutter w-full max-w-container-max mx-auto gap-6">
+<div class="mb-4 md:mb-0 text-center md:text-left">
+<a class="font-display-lg text-display-lg-mobile md:text-display-lg text-primary mb-1 block site-logo" href="home_animated_cinematic_experience.html">AETHER_ML</a>
+<p class="font-label-mono text-label-mono text-on-surface-variant">© 2024 Ritik_AI | ARCHITECT OF INTELLIGENCE</p>
+</div>
+<div class="flex flex-wrap gap-gutter justify-center">
+<a class="font-label-mono text-label-mono text-on-surface-variant hover:text-secondary hover:drop-shadow-[0_0_8px_rgba(209,188,255,0.8)] transition-colors duration-500" href="home_animated_cinematic_experience.html">Neural Networks</a>
+<a class="font-label-mono text-label-mono text-on-surface-variant hover:text-secondary hover:drop-shadow-[0_0_8px_rgba(209,188,255,0.8)] transition-colors duration-500" href="experience_project_showcase_1.html">Deep Learning</a>
+<a class="font-label-mono text-label-mono text-on-surface-variant hover:text-secondary hover:drop-shadow-[0_0_8px_rgba(209,188,255,0.8)] transition-colors duration-500" href="experience_project_showcase_3.html">Big Data</a>
+<a class="font-label-mono text-label-mono text-on-surface-variant hover:text-secondary hover:drop-shadow-[0_0_8px_rgba(209,188,255,0.8)] transition-colors duration-500" href="initialize_connection_contact_social_links.html">Contact</a>
+</div>
+</div>
+</footer>
+<!-- Scripts -->
+<script>
+    // 1. Timeline Draw-on Effect & Intersection Observer
+    const timelineProgress = document.getElementById('timeline-progress');
+    const experienceSection = document.getElementById('experience-section');
+    
+    window.addEventListener('scroll', () => {
+        if (!experienceSection) return;
+        const rect = experienceSection.getBoundingClientRect();
+        const winHeight = window.innerHeight;
+        
+        // Calculate percentage of section visible
+        let progress = (winHeight - rect.top) / (rect.height + winHeight);
+        progress = Math.max(0, Math.min(1, progress));
+        
+        timelineProgress.style.height = `${progress * 100}%`;
+    });
+
+    const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('reveal-active');
+            }
+        });
+    }, { threshold: 0.2 });
+
+    document.querySelectorAll('.reveal-left, .reveal-right').forEach(el => revealObserver.observe(el));
+
+    // 2. 3D Tilt Effect for Project Cards
+    document.querySelectorAll('.tilt-card').forEach(card => {
+        card.addEventListener('mousemove', e => {
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            
+            const rotateX = (centerY - y) / 10;
+            const rotateY = (x - centerX) / 10;
+            
+            card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+        });
+        
+        card.addEventListener('mouseleave', () => {
+            card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg)`;
+        });
+    });
+
+    function toggleExpand(element) {
+        element.classList.toggle('md:row-span-3');
+        element.classList.toggle('md:row-span-2');
+    }
+
+    // 3. Ambient Particle Background
+    const canvas = document.getElementById('particle-canvas');
+    const ctx = canvas.getContext('2d');
+    let particles = [];
+
+    function initParticles() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        particles = [];
+        for(let i = 0; i < 50; i++) {
+            particles.push({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                size: Math.random() * 2 + 1,
+                speedX: (Math.random() - 0.5) * 0.5,
+                speedY: (Math.random() - 0.5) * 0.5,
+                opacity: Math.random() * 0.5 + 0.1
+            });
+        }
+    }
+
+    function animateParticles() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        particles.forEach(p => {
+            p.x += p.speedX;
+            p.y += p.speedY;
+            
+            if (p.x < 0) p.x = canvas.width;
+            if (p.x > canvas.width) p.x = 0;
+            if (p.y < 0) p.y = canvas.height;
+            if (p.y > canvas.height) p.y = 0;
+            
+            ctx.fillStyle = `rgba(0, 219, 231, ${p.opacity})`;
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+            ctx.fill();
+        });
+        requestAnimationFrame(animateParticles);
+    }
+
+    window.addEventListener('resize', initParticles);
+    initParticles();
+    animateParticles();
+
+    // Subtle parallax for background orbs
+    document.addEventListener('mousemove', (e) => {
+        const orbs = document.querySelectorAll('.fixed.inset-0 div');
+        const x = (e.clientX / window.innerWidth) - 0.5;
+        const y = (e.clientY / window.innerHeight) - 0.5;
+        
+        if(orbs[0]) orbs[0].style.transform = `translate(${x * 30}px, ${y * 30}px)`;
+        if(orbs[1]) orbs[1].style.transform = `translate(${x * -20}px, ${y * -20}px)`;
+    });
+</script>
+<script src="site.js"></script>
+</body></html>
